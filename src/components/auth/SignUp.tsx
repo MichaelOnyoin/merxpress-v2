@@ -5,32 +5,37 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import axios from "axios"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
-async function validateLogin(email: string, password: string) {
+const router = useRouter();
+
+async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
   try {
-    const response = await fetch("http://localhost:8000/api/login", {
+    const response = await fetch("http://localhost:8000/api/register-user", {
       method: "POST",
+      // Allow all origins, adjust as needed for security
+      // mode: "cors", // Enable CORS if needed, depending on your server configuration
       headers: {
         "Content-Type": "application/json",
-
+       
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({name, email, password, password_confirmation}),
 
     });
-    console.log(JSON.stringify({ email, password }));
-    console.log(response);
-    // Check if the response is ok (status in the range 200-299)
-    if(response.ok){
-    //console.log("Login successful");
-    // Assuming the response contains a token and user information
-    const data = await response.json();
-    console.log("Login response: ", data);
     
-
+    console.log(JSON.stringify({ name, email, password, password_confirmation }));
+    //console.log(response);
+    // Check if the response is ok (status in the range 200-299)
+    if(response){
+    console.log("Registration successful");
+    // Assuming the response contains a token and user information
+    //const data = await response.json();
+    //console.log("Register response: ", data);
+    
+    router.push("/login");
     // Show a success toast notification
-    toast.success("Login successful! Welcome back, " +data.name , {
+    toast.success("Registration successful! Welcome to Merxpress, " , {
       duration: 3000, // Duration in milliseconds
       position: "top-right", // Position of the toast
       style: {
@@ -44,8 +49,8 @@ async function validateLogin(email: string, password: string) {
     if (!response.ok) {
       // Handle non-2xx HTTP responses
       const errorData = await response.json();
-      toast.error("Login failed: Wrong email or password");
-      throw new Error(errorData.message || "Login failed");
+      toast.error("Registration failed");
+      throw new Error(errorData.message || "Registry failed");
       
     }
 
@@ -66,66 +71,79 @@ export function SignUpForm({
   // Define state variables for email and password
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [password_confirmation, setPasswordConfirmation] = React.useState("");
   // This function can be used to handle the form submission
-  const handleSubmit = async () => {
-    
+  
+   const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/register", {
-        name,
-        email,
-        password,
-       
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password } ),
-      }).then((res) => (res.data.email ? res.data : null))
-      .catch((err) => console.error(err));;
+      await validateRegister(name, email, password, password_confirmation);
+  
+      //localStorage.setItem("role", response.user.role);
+      
 
-      if (!response) {
-        throw new Error("Login failed");
-      }
-
-      window.location.reload();
     } catch (error) {
       console.error(error);
+      // Optionally show error to user
     }
-    console.log("login");
   };
+    useEffect(() => {
+      // Clear localStorage on component mount
+      localStorage.removeItem("token");
+      //localStorage.removeItem("role");
+    }, []);
  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8" action={handleSubmit} >
+          <form className="p-6 md:p-8" onSubmit={handleSubmit} >
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your Merxpress account
+                  Sign Up for a Merxpress account
                 </p>
               </div>
               <div className="grid gap-3">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
+                  required
+                />
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="email"
                   required
                 />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto text-sm underline-offset-2 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
+                 
                 </div>
-                <Input id="password" type="password" required />
-                <Input id="password-confirm" type="password" required placeholder="Confirm Password" />
+                <Input id="password" type="password" required 
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                />
+                <Input id="password-confirm" type="password" required placeholder="Confirm Password"
+                  value={password_confirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  autoComplete="current-password" 
+                 />
               </div>
               <Button type="submit" className="w-full">
                 Sign Up
@@ -143,7 +161,7 @@ export function SignUpForm({
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only">Login with Apple</span>
+                  <span className="sr-only">Sign-up with Apple</span>
                 </Button>
                 <Button variant="outline" type="button" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -152,7 +170,7 @@ export function SignUpForm({
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only">Login with Google</span>
+                  <span className="sr-only">Sign-up with Google</span>
                 </Button>
                 <Button variant="outline" type="button" className="w-full">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -165,9 +183,9 @@ export function SignUpForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
+                Already have an account?{" "}
                 <a href="#" className="underline underline-offset-4">
-                  Sign up
+                  Login
                 </a>
               </div>
             </div>
