@@ -8,9 +8,10 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 
-const router = useRouter();
+
 
 async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
+  const router = useRouter();
   try {
     const response = await fetch("http://localhost:8000/api/register-user", {
       method: "POST",
