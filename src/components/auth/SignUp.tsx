@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation"
 
 
 async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
-  const router = useRouter();
+  
   try {
     const response = await fetch("http://localhost:8000/api/register-user", {
       method: "POST",
@@ -34,7 +34,7 @@ async function validateRegister(name: string, email: string, password: string, p
     //const data = await response.json();
     //console.log("Register response: ", data);
     
-    router.push("/login");
+    //router.push("/login");
     // Show a success toast notification
     toast.success("Registration successful! Welcome to Merxpress, " , {
       duration: 3000, // Duration in milliseconds
@@ -75,12 +75,13 @@ export function SignUpForm({
   const [name, setName] = React.useState("");
   const [password_confirmation, setPasswordConfirmation] = React.useState("");
   // This function can be used to handle the form submission
-  
+  const router = useRouter();
    const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await validateRegister(name, email, password, password_confirmation);
-  
+      // If registration is successful, redirect to login page
+      router.push("/login");
       //localStorage.setItem("role", response.user.role);
       
 
