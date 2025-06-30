@@ -13,10 +13,9 @@ import { useRouter } from "next/navigation"
 async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
   
   try {
-    const response = await fetch("http://localhost:8000/api/register-user", {
+    const response = await fetch("http://localhost:8000/api/register", {
       method: "POST",
-      // Allow all origins, adjust as needed for security
-      // mode: "cors", // Enable CORS if needed, depending on your server configuration
+      mode: "cors", // Ensure CORS is enabled
       headers: {
         "Content-Type": "application/json",
        
@@ -31,8 +30,8 @@ async function validateRegister(name: string, email: string, password: string, p
     if(response){
     console.log("Registration successful");
     // Assuming the response contains a token and user information
-    //const data = await response.json();
-    //console.log("Register response: ", data);
+    const data = await response.json();
+    console.log("Register response: ", data);
     
     //router.push("/login");
     // Show a success toast notification
@@ -79,7 +78,7 @@ export function SignUpForm({
    const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await validateRegister(name, email, password, password_confirmation);
+      await validateRegister(name, email, password,password_confirmation );
       // If registration is successful, redirect to login page
       router.push("/login");
       //localStorage.setItem("role", response.user.role);
@@ -186,7 +185,7 @@ export function SignUpForm({
               </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <a href="#" className="underline underline-offset-4">
+                <a href="/login" className="underline underline-offset-4">
                   Login
                 </a>
               </div>

@@ -2,6 +2,13 @@
 import React from 'react'
 import { Settings, ShoppingCart, CircleUserRound, Mic, Search } from 'lucide-react'
 //import { Account } from './Account';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+
+//import { Button } from "@/components/ui/button";
 
 import { useCart } from '@/components/cart/CartContext';
 
@@ -44,8 +51,35 @@ export const Header=()=>{
                 </div>
                 <a href="#" className="text-gray-400 hover:text-red-500">Settings</a>
                 <div className="relative group">
+                    <HoverCard>
+                            <HoverCardTrigger asChild>
+                                <CircleUserRound className='w-8 h-8 stroke-white hover:stroke-red-500 shrink-0 self-stretch my-auto aspect-square' strokeWidth={1.0} fill='none' href='null'/>
+
+                            </HoverCardTrigger>
+                            <HoverCardContent className="w-80">
+                                <div className="flex justify-between gap-4">
+                                {/* <Avatar>
+                                    <AvatarImage src="https://github.com/vercel.png" />
+                                    <AvatarFallback>VC</AvatarFallback>
+                                </Avatar> */}
+                                <div className="space-y-1">
+                                    <h4 className="text-sm font-semibold">@nextjs</h4>
+                                    <ul className="space-y-2">
+                                        <li><a href="#" className="hover:text-red-500">Profile</a></li>
+                                        <li><a href="#" className="hover:text-red-500">Orders</a></li>
+                                        <li><a href="#" className="hover:text-red-500">Wishlist</a></li>
+                                        <li><a href="#" className="hover:text-red-500">Settings</a></li>
+                                        <li><a href="#" className="hover:text-red-500">Logout</a></li>
+                                    </ul>
+                                    <div className="text-muted-foreground text-xs">
+                                    Joined December 2021
+                                    </div>
+                                </div>
+                                </div>
+                            </HoverCardContent>
+                    </HoverCard>
                     
-                    <CircleUserRound className='w-8 h-8 stroke-white hover:stroke-red-500 shrink-0 self-stretch my-auto aspect-square' strokeWidth={1.0} fill='none' href='null'/>
+                    {/* <CircleUserRound className='w-8 h-8 stroke-white hover:stroke-red-500 shrink-0 self-stretch my-auto aspect-square' strokeWidth={1.0} fill='none' href='null'/>
                     <div className='absolute top-right translate-x-[-50%] hidden group-hover:block'>
                         <div className="bg-gray-800 text-white rounded-lg shadow-lg p-4 w-48">
                             <ul className="space-y-2">
@@ -56,7 +90,7 @@ export const Header=()=>{
                                 <li><a href="#" className="hover:text-red-500">Logout</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <a href="#" className="text-gray-400 hover:text-red-500">Account</a>
                 {/* <div className="flex items-center gap-x-1 hover:text-[#EB4545] text-[#ECECEC] cursor-pointer">

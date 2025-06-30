@@ -33,7 +33,7 @@ export default function PayPalButton() {
 
           });
         }}
-        onApprove={async (data, actions) => {
+        onApprove={async (data) => {
           const response = await fetch('/api/capture-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

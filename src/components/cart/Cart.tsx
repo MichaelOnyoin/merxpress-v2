@@ -12,8 +12,8 @@ import {
     TooltipProvider,
   } from '@/components/ui/tooltip'
 
-import { setOrder } from "@/db/actions";
-import PayPalButton from "../pay/PayPalButton";
+//import { setOrder } from "@/db/actions";
+//import PayPalButton from "../pay/PayPalButton";
 import { Button } from "../ui/button";
 
 export const CartPage = () => {
@@ -31,7 +31,7 @@ export const CartPage = () => {
   };
 
   const checkOut = () => {
-    setOrder(state.total,state.items);
+    //setOrder(state.total,state.items);
     //dispatch({ type: "CLEAR_CART" });
     toast.success('Order placed successfully',{position:'top-right', duration:2000,style:{backgroundColor:'white',color:'green',border:'2px solid white',borderRadius:'10px', boxShadow:'0 0 5px green'}});
   }
