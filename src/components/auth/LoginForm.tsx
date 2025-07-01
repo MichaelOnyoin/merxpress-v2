@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 
 
@@ -66,11 +67,15 @@ export function LoginForm({
   // Define state variables for email and password
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const router = useRouter();
   // This function can be used to handle the form submission
   const handleSubmit = async (event: React.FormEvent) => {
   event.preventDefault();
   try {
     await validateLogin(email, password);
+    // If login is successful, you can redirect or perform other actions
+    // For example, redirect to the dashboard or home page
+    router.push("/marketplace");
 
     //localStorage.setItem("role", response.user.role);
     console.log("Login successful:");

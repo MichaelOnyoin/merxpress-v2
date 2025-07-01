@@ -69,7 +69,7 @@ export const Header=()=>{
                                         <li><a href="#" className="hover:text-red-500">Orders</a></li>
                                         <li><a href="#" className="hover:text-red-500">Wishlist</a></li>
                                         <li><a href="#" className="hover:text-red-500">Settings</a></li>
-                                        <li><a href="#" className="hover:text-red-500">Logout</a></li>
+                                        <li><a href="/login" className="hover:text-red-500">Login</a></li>
                                     </ul>
                                     <div className="text-muted-foreground text-xs">
                                     Joined December 2021
