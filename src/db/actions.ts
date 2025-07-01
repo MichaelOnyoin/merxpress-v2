@@ -5,6 +5,7 @@ import { Order } from './definitions';
 //import { getUserDetails } from '@/app/actions';
 //import { stackServerApp } from '@/stack';
 //import { CartItem } from "./definitions";
+//import axios from "axios";
 
 const db_key =process.env.DATABASE_URL;
 // const user = await stackServerApp.getUser();
@@ -21,6 +22,8 @@ export async function getData() {
     console.log('Fetching product data...');
     return data as Product[];
 }
+
+
 
 export async function getOrder() {
     //const db_key =process.env.DATABASE_URL;

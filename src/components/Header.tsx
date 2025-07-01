@@ -33,6 +33,7 @@ export const Header=()=>{
                 </div>
                 
                 <Mic className='h-8 ml-2 text-gray-400 absolute left cursor-pointer' strokeWidth={1.0} fill='none'/>
+                
                 <div className="relative ">
                     
                     {/* <img src='icons/cart-outline.svg' className='h-10 w-10 fill-white '/> */}

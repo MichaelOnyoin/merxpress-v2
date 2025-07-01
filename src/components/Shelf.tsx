@@ -27,20 +27,20 @@ const Products = () => {
       </div>
       <div className="flex flex-col mt-2">
         <div className="flex flex-row mb-4">
-        {products.slice(4,8).map((product:Product) => (
+        {products.slice(4).map((product:Product) => (
 
           <ItemCard key={product.id} product={product}  />
         ))}
         </div>
       </div>
-      <div className="flex flex-col mt-2">
+      {/* <div className="flex flex-col mt-2">
         <div className="flex flex-row mb-4">
         {products.slice(9).map((product:Product) => (
 
           <ItemCard key={product.id} product={product}  />
         ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -55,7 +55,7 @@ export const ItemCard=({product}:ProductProps)=>{
                     <img 
                     src={product.imageUrl}
                     alt={product.title} 
-                    className="w-full object-contain mb-4"/>
+                    className="w-full min-w-62 object-contain mb-4"/>
                     <Heart className=' h-5 stroke-red-400 absolute top-4 mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
                                 
                     <div className="flex justify-between items-center mb-0">

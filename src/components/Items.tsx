@@ -27,15 +27,10 @@ export const Items: React.FC = async () => {
             <ItemCard key={product.id} product={product} />
             
           ))}
-          
-         
         </div>
       </div>
-      
-      
-      
-    </div>
-    
+      </div>
+     
   );
 };
 
