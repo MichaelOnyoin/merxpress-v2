@@ -7,17 +7,60 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-
-//import { Button } from "@/components/ui/button";
-
+import { LogIn, LogOut } from 'lucide-react'
+//import { logout } from '@/db/actions'
+//import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+//import { getSession } from '@/lib/session'
+//import { getUser } from '@/lib/auth'
 import { useCart } from '@/components/cart/CartContext';
+import Link from 'next/link'
 
-export const Header=()=>{
+async function logout() {
+  
+  try {
+    const response = await fetch('http://localhost:8000/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
+    if (!response.ok) {
+      throw new Error('Logout failed');
+    }
+    // Optionally, you can clear user session or local storage
+    // For example, if you're using local storage:
+    // useEffect(() => {
+    //     localStorage.removeItem('user');
+    //     }
+    // , []);
+    localStorage.removeItem('user');
+    // Clear session cookie
+    //cookies().set('session', '', { maxAge: -1 });
+    // Optionally, you can redirect or update the UI after logout
+   console.log('Logout successful');
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+}
+
+export const Header = ()=>{
+    //reference that the user maybe null 
+     //const user = typeof window !== "undefined" ? ""  : null;
+    const user = typeof window !== "undefined" ? localStorage.getItem('user') : null;
+    const{cartCount} = useCart();
+
+    const remove = ()=>{
+        logout();
+        // useEffect(() => {
+        // localStorage.removeItem('user');
+        // }
+        // , []);
+        localStorage.removeItem('user');
+        console.log("User logged out");
+    }
     
-     const{cartCount} = useCart();
-    
-    
+
     return(
         <nav className="bg-[#011627] p-4 flex justify-between items-center">
             <div className="flex items-center">
@@ -64,13 +107,36 @@ export const Header=()=>{
                                     <AvatarFallback>VC</AvatarFallback>
                                 </Avatar> */}
                                 <div className="space-y-1">
-                                    <h4 className="text-sm font-semibold">@nextjs</h4>
+                                    <h4 className="text-sm font-semibold">Hi {user ? user: null}</h4>
                                     <ul className="space-y-2">
                                         <li><a href="#" className="hover:text-red-500">Profile</a></li>
                                         <li><a href="#" className="hover:text-red-500">Orders</a></li>
                                         <li><a href="#" className="hover:text-red-500">Wishlist</a></li>
                                         <li><a href="#" className="hover:text-red-500">Settings</a></li>
-                                        <li><a href="/login" className="hover:text-red-500">Login</a></li>
+                                       {user ? (
+                                                
+                                                <li>
+                                                <Link
+                                                    href="/"
+                                                    className="hover:text-red-500"
+                                                    onClick={remove}
+                                                >
+                                                    <LogOut className="w-4 h-4 stroke-blue inline-block hover:stroke-red-500" strokeWidth={1.0} fill="none" />
+                                                    Logout
+                                                </Link>
+                                                </li>
+                                            ) : (
+                                                <li>
+                                                <Link
+                                                    href="/login"
+                                                    className="hover:text-red-500"
+                                                    //onClick={logout}
+                                                >
+                                                    <LogIn className="w-4 h-4 stroke-blue inline-block hover:stroke-red-500" strokeWidth={1.0} fill="none" />
+                                                    Login
+                                                </Link>
+                                                </li>
+                                            )}
                                     </ul>
                                     <div className="text-muted-foreground text-xs">
                                     Joined December 2021

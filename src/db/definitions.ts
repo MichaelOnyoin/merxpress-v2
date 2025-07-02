@@ -174,3 +174,13 @@ export interface ProductData {
                   return state;
               }
             }
+
+
+export type SessionPayload = {
+  sessionId?: string;
+  userId: string;
+  ip_address?: string;
+  payload?: string;
+  last_activity?: Date;
+  expiresAt: Date;
+};

@@ -27,7 +27,7 @@ export const Catalog: React.FC = () => {
                             <input type="text" className="border rounded p-1 w-1/2 mr-2" defaultValue={0} />
                             <input type="text" className="border rounded p-1 w-1/2 "
                              value={`$${value}`}
-                             //defaultValue={0}
+                             //defaultValue={50}
                              
                              />
                         </div>

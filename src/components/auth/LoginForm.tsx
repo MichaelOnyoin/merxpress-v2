@@ -1,5 +1,5 @@
 'use client'
-import React,{ useEffect} from "react"
+import React from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -7,58 +7,55 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { validateLogin } from "@/db/actions"
+// import { createSession } from "@/lib/session"
+// import { redirect } from "next/navigation"
 
 
 
-async function validateLogin(email: string, password: string) {
-  try {
-    const response = await fetch("http://localhost:8000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+// async function validateLogin(email: string, password: string) {
+//   try {
+//     const response = await fetch("http://localhost:8000/api/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
 
-      },
-      body: JSON.stringify({ email, password }),
+//       },
+//       body: JSON.stringify({ email, password }),
 
-    });
-    console.log(JSON.stringify({ email, password }));
-    console.log(response);
-    // Check if the response is ok (status in the range 200-299)
-    if(response.ok){
-    //console.log("Login successful");
-    // Assuming the response contains a token and user information
-    const data = await response.json();
-    console.log("Login response: ", data);
+//     });
+//     console.log(JSON.stringify({ email, password }));
+//     console.log(response);
     
+//     if(response.ok){
+   
+//     const data = await response.json();
+//     console.log("Login response: ", data);
+//     toast.success("Login successful! Welcome back, " +data.name , {
+//       duration: 3000, // Duration in milliseconds
+//       position: "top-right", // Position of the toast
+//       style: {
+//         backgroundColor: "#4CAF50", // Green background for success
+//         color: "#fff", // White text color
+//       },
+//     });
+//     return data;
+//     }
 
-    // Show a success toast notification
-    toast.success("Login successful! Welcome back, " +data.name , {
-      duration: 3000, // Duration in milliseconds
-      position: "top-right", // Position of the toast
-      style: {
-        backgroundColor: "#4CAF50", // Green background for success
-        color: "#fff", // White text color
-      },
-    });
-    
-    }
-
-    if (!response.ok) {
-      // Handle non-2xx HTTP responses
-      const errorData = await response.json();
-      toast.error("Login failed: Wrong email or password");
-      throw new Error(errorData.message || "Login failed");
+//     if (!response.ok) {
       
-    }
+//       const errorData = await response.json();
+//       toast.error("Login failed: Wrong email or password");
+//       throw new Error(errorData.message || "Login failed");
+      
+//     }
 
-    // Parse and return the response data (e.g., token, user info)
-    //return await response.json();
-    
-  } catch (error) {
-    // Handle network or parsing errors
-    throw error;
-  }
-}
+  
+//   } catch (error) {
+  
+//     throw error;
+//   }
+// }
 
 export function LoginForm({
   className,
@@ -72,24 +69,35 @@ export function LoginForm({
   const handleSubmit = async (event: React.FormEvent) => {
   event.preventDefault();
   try {
-    await validateLogin(email, password);
+    const data =await validateLogin(email, password);
     // If login is successful, you can redirect or perform other actions
     // For example, redirect to the dashboard or home page
-    router.push("/marketplace");
-
-    //localStorage.setItem("role", response.user.role);
+    //router.push("/marketplace");
+    toast.success("Login successful! Welcome back, " +data.name , {
+      duration: 3000, // Duration in milliseconds
+      position: "top-right", // Position of the toast
+      style: {
+        backgroundColor: "#4CAF50", // Green background for success
+        color: "#fff", // White text color
+      },
+    });
     console.log("Login successful:");
-    // Optionally redirect or update UI here
+    console.log(data);
+    // Store the token or user information in localStorage or a global state
+    //localStorage.setItem("user", data.user.name);
+    //await createSession(data.user.id); 
+    router.push("/marketplace");
+    
   } catch (error) {
     console.error(error);
     // Optionally show error to user
   }
 };
-  useEffect(() => {
-    // Clear localStorage on component mount
-    localStorage.removeItem("token");
-    //localStorage.removeItem("role");
-  }, []);
+  // useEffect(() => {
+  //   // Clear localStorage on component mount
+  //   localStorage.setItem("token", "");
+  //   //localStorage.removeItem("role");
+  // }, []);
  
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>

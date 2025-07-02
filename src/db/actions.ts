@@ -6,10 +6,85 @@ import { Order } from './definitions';
 //import { stackServerApp } from '@/stack';
 //import { CartItem } from "./definitions";
 //import axios from "axios";
+import { toast } from 'sonner';
 
 const db_key =process.env.DATABASE_URL;
 // const user = await stackServerApp.getUser();
 // const userProfile = await getUserDetails(user?.id);
+
+export async function validateLogin(email: string, password: string) {
+  try {
+    const response = await fetch("http://localhost:8000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+
+      },
+      body: JSON.stringify({ email, password }),
+
+    });
+    console.log(JSON.stringify({ email, password }));
+    console.log(response);
+    // Check if the response is ok (status in the range 200-299)
+    if(response.ok){
+    //console.log("Login successful");
+    // Assuming the response contains a token and user information
+    const data = await response.json();
+    console.log("Login response: ", data);
+    
+    
+
+    // Show a success toast notification
+    // toast.success("Login successful! Welcome back, " +data.name , {
+    //   duration: 3000, // Duration in milliseconds
+    //   position: "top-right", // Position of the toast
+    //   style: {
+    //     backgroundColor: "#4CAF50", // Green background for success
+    //     color: "#fff", // White text color
+    //   },
+    // });
+    return data;
+    }
+
+    if (!response.ok) {
+      // Handle non-2xx HTTP responses
+      const errorData = await response.json();
+      toast.error("Login failed: Wrong email or password");
+      throw new Error(errorData.message || "Login failed");
+      
+    }
+
+    // Parse and return the response data (e.g., token, user info)
+    //return await response.json();
+    
+  } catch (error) {
+    // Handle network or parsing errors
+    throw error;
+  }
+}
+
+export async function logout() {
+  //'use server'
+  try {
+    const response = await fetch('http://localhost:8000/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Logout failed');
+    }
+    // Optionally, you can clear user session or local storage
+    // For example, if you're using local storage:
+     localStorage.removeItem('user');
+    // Optionally, you can redirect or update the UI after logout
+   console.log('Logout successful');
+  } catch (error) {
+    console.error('Logout error:', error);
+  }
+}
 
 export async function getData() {
     
