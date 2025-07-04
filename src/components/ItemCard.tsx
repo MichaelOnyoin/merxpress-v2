@@ -57,7 +57,17 @@ export const ItemCard=({product}:ProductProps)=>{
                     alt={product.title} 
                     className="w-full min-w-62 object-contain mb-4"/>
                     <Heart className=' h-5 stroke-red-400 absolute top-4 mr-2 right-0 hover:fill-red-500' strokeWidth={1.0} fill='none' href='null' role="button" onClick={handleLike}/>
-                                
+                    {/* {product.liked ? (
+                        <span className="absolute top-4 right-0 text-red-500 font-bold">{likeCount}</span>
+                    ) : (
+                        <span className="absolute top-4 right-0 text-gray-500 font-bold">{likeCount}</span>
+                    )} */}
+                    {product.deals ? (
+                        <span className="bg-red-500 text-zinc-100 h-6 w-fit px-1 absolute top left-4 rounded-sm">{product.deals}</span>
+                    ) : (
+                        <span className="">{null}</span>
+                    )}
+                    
                     <div className="flex justify-between items-center mb-0">
                     {product.discount ? (
                         <div className="relative ">

@@ -53,10 +53,10 @@ export const CartPage = () => {
               <TooltipProvider>
                 <Tooltip>
                 <TooltipTrigger asChild>
-                  <Trash2 role="button" className="stroke-red-500 absolute bottom" onClick={() => removeItem(item.id)}/>
+                  <Trash2 role="button" className="stroke-red-500  bottom left-12" onClick={() => removeItem(item.id)}/>
 
                 </TooltipTrigger>
-                <TooltipContent sideOffset={5} className="transform -translate-x-[-2/3] bg-gray-500/90 text-white p-4 rounded shadow-sm p-2 rounded-lg ">
+                <TooltipContent sideOffset={5} className="transform -translate-x-[-2/3] bg-gray-500/90 bottom right-0 text-white p-4 rounded shadow-sm p-2 rounded-lg ">
                   Remove item from cart
                 </TooltipContent>
                 </Tooltip>

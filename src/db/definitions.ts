@@ -15,6 +15,7 @@ export type Product = {
     title: string;
     description: string;
     imageUrl: string;
+    deals?: string; // Optional field for deals
     //liked?:boolean;
   };
 
@@ -26,6 +27,7 @@ export interface ProductCardProps {
     title: string;
     description: string;
     imageUrl: string;
+    deals?: string; // Optional field for deals
     //liked?:boolean;
   }
 
