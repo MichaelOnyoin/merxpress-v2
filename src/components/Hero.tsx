@@ -1,6 +1,8 @@
 'use client'
 import React from 'react'
 //import { Button } from './ui/button'
+import Link from 'next/link'
+
 
 export const Page=()=>{
     
@@ -12,11 +14,13 @@ export const Page=()=>{
                     <h1 className="text-6xl mr-2.5 font-bold text-gray-700">Welcome to Merxpress Mall</h1>
                     <p className="text-2xl text-gray-700 mt-4 font-semibold">Infinite opportunities for everyone <br></br> and everywhere</p>
                     
-                    <a href="/marketplace">
-                    {/* <Button className='mt-6 px-6 py-3 text-lg bg-red-500 text-white font-semibold rounded-md'>Explore More</Button> */}
-            
+                    <Link href="/marketplace"> 
+                    
                     <button className="mt-6 px-5 py-2.5 cursor-pointer bg-red-500/80 text-white text-lg rounded-md" >Explore More</button>
-                    </a>
+`
+                    </Link>
+                    {/* <Button className='mt-6 text-lg bg-red-500 text-zinc-100 font-semibold rounded-md ' variant="link">Explore More</Button>
+                    */}
                 </div>
                 <div className="md:w-1/2 mt-6 md:mt-0 mr-4">
                     <img src="images/hero.png" alt="Two people working together on a computer" className="rounded-lg shadow-lg" style={{height:"400px",width:"700px"}} />

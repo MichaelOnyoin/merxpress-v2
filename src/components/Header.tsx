@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Settings, ShoppingCart, CircleUserRound, Mic, Search } from 'lucide-react'
+import { Settings, ShoppingCart, CircleUserRound } from 'lucide-react'
 //import { Account } from './Account';
 import {
   HoverCard,
@@ -10,10 +10,9 @@ import {
 import { LogIn, LogOut } from 'lucide-react'
 //import { logout } from '@/db/actions'
 //import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-//import { getSession } from '@/lib/session'
-//import { getUser } from '@/lib/auth'
 import { useCart } from '@/components/cart/CartContext';
 import Link from 'next/link'
+import { SearchBar } from './search/Search'
 
 async function logout() {
   
@@ -36,7 +35,7 @@ async function logout() {
     // , []);
     localStorage.removeItem('user');
     // Clear session cookie
-    //cookies().set('session', '', { maxAge: -1 });
+    
     // Optionally, you can redirect or update the UI after logout
    console.log('Logout successful');
   } catch (error) {
@@ -69,31 +68,34 @@ export const Header = ()=>{
             </div>
             <div className="flex items-center space-x-5 ">
                 <div className="relative w-auto flex-grow">
-                    <input type="text" placeholder=" Search for anything" className="pl-10 pr-4 py-2 rounded-full bg-gray-800 text-white flex-stretch focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300 w-full" style={{width:"400px"}}/>
+                    {/* <input type="text" placeholder=" Search for anything" className="pl-10 pr-4 py-2 rounded-full bg-gray-800 text-white flex-stretch focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors duration-300 w-full" style={{width:"400px"}}/>
                 
-                    <Search className='absolute right-3 top-2.5 text-gray-400 cursor-pointer' strokeWidth={1.5} fill='none' role='button' type='submit' aria-disabled/>
+                    <Search className='absolute right-3 top-2.5 text-gray-400 cursor-pointer' strokeWidth={1.5} fill='none' role='button' type='submit' aria-disabled/> */}
+                    <SearchBar className="w-full max-w-md" />
                     
                 </div>
                 
-                <Mic className='h-8 ml-2 text-gray-400 absolute left cursor-pointer' strokeWidth={1.0} fill='none'/>
-                
+                {/* <Mic className='h-8 ml-2 text-gray-400 absolute left cursor-pointer' strokeWidth={1.0} fill='none'/> */}
+                <div className='flex group hover:text-red-500 hover:stroke-red-500'>
                 <div className="relative ">
                     
                     {/* <img src='icons/cart-outline.svg' className='h-10 w-10 fill-white '/> */}
-                     <ShoppingCart className='w-full h-8 stroke-white hover:stroke-red-500 ' strokeWidth={1.0} fill='none' href='/marketplace/cart' />
+                     <ShoppingCart className='w-full h-8 stroke-white hover:stroke-red-500' strokeWidth={1.0} fill='none' href='/marketplace/cart' />
                     <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">{cartCount}</span>
                     
                 </div>
                 <a href="/marketplace/cart" className="text-gray-400 hover:text-red-500">Cart</a>
-                
+                </div>
                 <div className="">
                     
                     {/* <img src='Windows_Settings_icon.svg' className='h-7 w-7 fill-white '/> */}
-                    <Settings className='w-full h-8 stroke-white hover:stroke-red-500 ' strokeWidth={1.0} fill='none' href='null'/> 
+                    <span className='flex'>
+                    <Settings className='w-full h-8 stroke-white hover:stroke-red-500 mr-2' strokeWidth={1.0} fill='none' href='null'/> 
                     {/* <span className="absolute top-0 right-0 bg-red-500 hover:fill-red-500 text-white text-xs rounded-full px-1"></span> */}
-                    
+                    <a href="#" className="text-gray-400 hover:text-red-500 ">Settings</a>
+                    </span>
                 </div>
-                <a href="#" className="text-gray-400 hover:text-red-500">Settings</a>
+                
                 <div className="relative group">
                     <HoverCard>
                             <HoverCardTrigger asChild>
@@ -102,11 +104,12 @@ export const Header = ()=>{
                             </HoverCardTrigger>
                             <HoverCardContent className="w-80">
                                 <div className="flex justify-between gap-4">
-                                {/* <Avatar>
+                                
+                                <div className="space-y-1">
+                                    {/* <Avatar>
                                     <AvatarImage src="https://github.com/vercel.png" />
                                     <AvatarFallback>VC</AvatarFallback>
-                                </Avatar> */}
-                                <div className="space-y-1">
+                                    </Avatar> */}
                                     <h4 className="text-sm font-semibold">Hi {user ? user: null}</h4>
                                     <ul className="space-y-2">
                                         <li><a href="#" className="hover:text-red-500">Profile</a></li>
@@ -146,18 +149,6 @@ export const Header = ()=>{
                             </HoverCardContent>
                     </HoverCard>
                     
-                    {/* <CircleUserRound className='w-8 h-8 stroke-white hover:stroke-red-500 shrink-0 self-stretch my-auto aspect-square' strokeWidth={1.0} fill='none' href='null'/>
-                    <div className='absolute top-right translate-x-[-50%] hidden group-hover:block'>
-                        <div className="bg-gray-800 text-white rounded-lg shadow-lg p-4 w-48">
-                            <ul className="space-y-2">
-                                <li><a href="#" className="hover:text-red-500">Profile</a></li>
-                                <li><a href="#" className="hover:text-red-500">Orders</a></li>
-                                <li><a href="#" className="hover:text-red-500">Wishlist</a></li>
-                                <li><a href="#" className="hover:text-red-500">Settings</a></li>
-                                <li><a href="#" className="hover:text-red-500">Logout</a></li>
-                            </ul>
-                        </div>
-                    </div> */}
                 </div>
                 <a href="#" className="text-gray-400 hover:text-red-500">Account</a>
                 {/* <div className="flex items-center gap-x-1 hover:text-[#EB4545] text-[#ECECEC] cursor-pointer">

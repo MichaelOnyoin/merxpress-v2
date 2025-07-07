@@ -12,6 +12,38 @@ const db_key =process.env.DATABASE_URL;
 // const user = await stackServerApp.getUser();
 // const userProfile = await getUserDetails(user?.id);
 
+export async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
+  
+  try {
+    const response = await fetch("http://localhost:8000/api/register", {
+      method: "POST",
+      mode: "cors", // Ensure CORS is enabled
+      headers: {
+        "Content-Type": "application/json",
+       
+      },
+      body: JSON.stringify({name, email, password, password_confirmation}),
+
+    });
+    
+    console.log(JSON.stringify({ name, email, password, password_confirmation }));
+    //console.log(response);
+    // Check if the response is ok (status in the range 200-299)
+    if(response){
+    console.log("Registration successful");
+    // Assuming the response contains a token and user information
+    const data = await response.json();
+    console.log("Register response: ", data);
+
+    return data;
+    }
+  } catch (error) {
+    // Handle network or parsing errors
+    console.error("Registration error:", error);
+    throw error;
+  }
+}
+
 export async function validateLogin(email: string, password: string) {
   try {
     const response = await fetch("http://localhost:8000/api/login", {
@@ -32,17 +64,6 @@ export async function validateLogin(email: string, password: string) {
     const data = await response.json();
     console.log("Login response: ", data);
     
-    
-
-    // Show a success toast notification
-    // toast.success("Login successful! Welcome back, " +data.name , {
-    //   duration: 3000, // Duration in milliseconds
-    //   position: "top-right", // Position of the toast
-    //   style: {
-    //     backgroundColor: "#4CAF50", // Green background for success
-    //     color: "#fff", // White text color
-    //   },
-    // });
     return data;
     }
 
@@ -84,6 +105,29 @@ export async function logout() {
   } catch (error) {
     console.error('Logout error:', error);
   }
+}
+
+export async function searchProducts(query: string) {
+  try {
+    const response = await fetch(`http://localhost:8000/api/products/search?q=${encodeURIComponent(query)}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Search failed");
+    }
+
+    const data = await response.json();
+    console.log("Search results:", data);
+    return data;
+  } catch (error) {
+    console.error("Search error:", error);
+    throw error;
+  }
+
 }
 
 export async function getData() {

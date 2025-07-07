@@ -8,54 +8,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { validateLogin } from "@/db/actions"
-// import { createSession } from "@/lib/session"
-// import { redirect } from "next/navigation"
 
-
-
-// async function validateLogin(email: string, password: string) {
-//   try {
-//     const response = await fetch("http://localhost:8000/api/login", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-
-//       },
-//       body: JSON.stringify({ email, password }),
-
-//     });
-//     console.log(JSON.stringify({ email, password }));
-//     console.log(response);
-    
-//     if(response.ok){
-   
-//     const data = await response.json();
-//     console.log("Login response: ", data);
-//     toast.success("Login successful! Welcome back, " +data.name , {
-//       duration: 3000, // Duration in milliseconds
-//       position: "top-right", // Position of the toast
-//       style: {
-//         backgroundColor: "#4CAF50", // Green background for success
-//         color: "#fff", // White text color
-//       },
-//     });
-//     return data;
-//     }
-
-//     if (!response.ok) {
-      
-//       const errorData = await response.json();
-//       toast.error("Login failed: Wrong email or password");
-//       throw new Error(errorData.message || "Login failed");
-      
-//     }
-
-  
-//   } catch (error) {
-  
-//     throw error;
-//   }
-// }
 
 export function LoginForm({
   className,
@@ -73,8 +26,8 @@ export function LoginForm({
     // If login is successful, you can redirect or perform other actions
     // For example, redirect to the dashboard or home page
     //router.push("/marketplace");
-    toast.success("Login successful! Welcome back, " +data.name , {
-      duration: 3000, // Duration in milliseconds
+    toast.success("Login successful! Welcome back, " +data.user.name , {
+      duration: 6000, // Duration in milliseconds
       position: "top-right", // Position of the toast
       style: {
         backgroundColor: "#4CAF50", // Green background for success
@@ -84,7 +37,7 @@ export function LoginForm({
     console.log("Login successful:");
     console.log(data);
     // Store the token or user information in localStorage or a global state
-    //localStorage.setItem("user", data.user.name);
+    localStorage.setItem("user", data.user.name);
     //await createSession(data.user.id); 
     router.push("/marketplace");
     

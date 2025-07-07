@@ -7,61 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
-
-
-
-async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
-  
-  try {
-    const response = await fetch("http://localhost:8000/api/register", {
-      method: "POST",
-      mode: "cors", // Ensure CORS is enabled
-      headers: {
-        "Content-Type": "application/json",
-       
-      },
-      body: JSON.stringify({name, email, password, password_confirmation}),
-
-    });
-    
-    console.log(JSON.stringify({ name, email, password, password_confirmation }));
-    //console.log(response);
-    // Check if the response is ok (status in the range 200-299)
-    if(response){
-    console.log("Registration successful");
-    // Assuming the response contains a token and user information
-    const data = await response.json();
-    console.log("Register response: ", data);
-    
-    //router.push("/login");
-    // Show a success toast notification
-    toast.success("Registration successful! Welcome to Merxpress, " , {
-      duration: 3000, // Duration in milliseconds
-      position: "top-right", // Position of the toast
-      style: {
-        backgroundColor: "#4CAF50", // Green background for success
-        color: "#fff", // White text color
-      },
-    });
-    
-    }
-
-    if (!response.ok) {
-      // Handle non-2xx HTTP responses
-      const errorData = await response.json();
-      toast.error("Registration failed");
-      throw new Error(errorData.message || "Registry failed");
-      
-    }
-
-    // Parse and return the response data (e.g., token, user info)
-    //return await response.json();
-    
-  } catch (error) {
-    // Handle network or parsing errors
-    throw error;
-  }
-}
+import { validateRegister } from "@/db/actions"
 
 
 export function SignUpForm({
@@ -78,11 +24,19 @@ export function SignUpForm({
    const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      await validateRegister(name, email, password,password_confirmation );
+      const data = await validateRegister(name, email, password,password_confirmation );
+
       // If registration is successful, redirect to login page
+      toast.success("Registration successful! Welcome to Merxpress, " +data.user.name, {
+      duration: 6000, // Duration in milliseconds
+      position: "top-right", // Position of the toast
+      style: {
+        backgroundColor: "#4CAF50", // Green background for success
+        color: "#fff", // White text color
+      },
+    });
       router.push("/login");
-      //localStorage.setItem("role", response.user.role);
-      
+      localStorage.setItem("user", data.user.name);
 
     } catch (error) {
       console.error(error);
@@ -91,7 +45,7 @@ export function SignUpForm({
   };
     useEffect(() => {
       // Clear localStorage on component mount
-      localStorage.removeItem("token");
+      localStorage.removeItem("user");    
       //localStorage.removeItem("role");
     }, []);
  
