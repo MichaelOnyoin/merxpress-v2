@@ -9,7 +9,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/products")
+    axios.get("https://merx-backend-main-a1cmw8.laravel.cloud/api/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error(err));
   }, []);

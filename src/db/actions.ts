@@ -15,7 +15,7 @@ const db_key =process.env.DATABASE_URL;
 export async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
   
   try {
-    const response = await fetch("http://localhost:8000/api/register", {
+    const response = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/register", {
       method: "POST",
       mode: "cors", // Ensure CORS is enabled
       headers: {
@@ -46,7 +46,7 @@ export async function validateRegister(name: string, email: string, password: st
 
 export async function validateLogin(email: string, password: string) {
   try {
-    const response = await fetch("http://localhost:8000/api/login", {
+    const response = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export async function validateLogin(email: string, password: string) {
 export async function logout() {
   //'use server'
   try {
-    const response = await fetch('http://localhost:8000/api/logout', {
+    const response = await fetch('https://merx-backend-main-a1cmw8.laravel.cloud/api/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export async function logout() {
 
 export async function searchProducts(query: string) {
   try {
-    const response = await fetch(`http://localhost:8000/api/products/search?q=${encodeURIComponent(query)}`, {
+    const response = await fetch(`https://merx-backend-main-a1cmw8.laravel.cloud/api/products/search?q=${encodeURIComponent(query)}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
