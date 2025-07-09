@@ -17,6 +17,7 @@ const VerifyEmail = () => {
         setStatus('Email successfully verified! Redirecting...');
         setTimeout(() => router.push('/login'), 3000);
       } catch (error) {
+        console.error('Verification error:', error);
         setStatus('Verification failed. The link may have expired.');
       }
     };
