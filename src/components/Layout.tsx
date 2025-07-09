@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Header } from './Header';
 import { Footer } from './Footer';
+import { Mid } from './MidSection';
 
 
 export default function Layout({
@@ -13,6 +14,7 @@ export default function Layout({
         <>
         <Header/>
         {children}
+        <Mid/>
         <Footer/>
         </>
     );

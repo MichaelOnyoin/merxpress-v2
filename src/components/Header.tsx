@@ -8,40 +8,35 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { LogIn, LogOut } from 'lucide-react'
-//import { logout } from '@/db/actions'
+import { logout } from '@/db/actions'
 //import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCart } from '@/components/cart/CartContext';
 import Link from 'next/link'
 import { SearchBar } from './search/Search'
 
-async function logout() {
+// async function logout() {
   
-  try {
-    const response = await fetch('http://localhost:8000/api/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+//   try {
+//     const response = await fetch('http://localhost:8000/api/logout', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
 
-    if (!response.ok) {
-      throw new Error('Logout failed');
-    }
-    // Optionally, you can clear user session or local storage
-    // For example, if you're using local storage:
-    // useEffect(() => {
-    //     localStorage.removeItem('user');
-    //     }
-    // , []);
-    localStorage.removeItem('user');
-    // Clear session cookie
+//     if (!response.ok) {
+//       throw new Error('Logout failed');
+//     }
+//     // Handle successful logout, e.g., clear user data from local storage or state
+//     localStorage.removeItem('user');
+//     // Clear session cookie
     
-    // Optionally, you can redirect or update the UI after logout
-   console.log('Logout successful');
-  } catch (error) {
-    console.error('Logout error:', error);
-  }
-}
+//     // Optionally, you can redirect or update the UI after logout
+//    console.log('Logout successful');
+//   } catch (error) {
+//     console.error('Logout error:', error);
+//   }
+// }
 
 export const Header = ()=>{
     //reference that the user maybe null 
@@ -111,11 +106,12 @@ export const Header = ()=>{
                                     <AvatarFallback>VC</AvatarFallback>
                                     </Avatar> */}
                                     <h4 className="text-sm font-semibold">Hi {user ? user: null}</h4>
-                                    <ul className="space-y-2">
-                                        <li><a href="#" className="hover:text-red-500">Profile</a></li>
-                                        <li><a href="#" className="hover:text-red-500">Orders</a></li>
-                                        <li><a href="#" className="hover:text-red-500">Wishlist</a></li>
-                                        <li><a href="#" className="hover:text-red-500">Settings</a></li>
+                                    <ul className="space-y-2 w-full">
+                                        <div className='p-2 w-70'>
+                                        <li className='hover:bg-gray-100 rounded-md p-2'><a href="#" className="hover:text-red-500">Profile</a></li>
+                                        <li className='hover:bg-gray-100 rounded-md p-2'><a href="#" className="hover:text-red-500">Orders</a></li>
+                                        <li className='hover:bg-gray-100 rounded-md p-2'><a href="#" className="hover:text-red-500">Wishlist</a></li>
+                                        <li className='hover:bg-gray-100 rounded-md p-2'><a href="#" className="hover:text-red-500">Settings</a></li>
                                        {user ? (
                                                 
                                                 <li>
@@ -140,6 +136,7 @@ export const Header = ()=>{
                                                 </Link>
                                                 </li>
                                             )}
+                                            </div>
                                     </ul>
                                     <div className="text-muted-foreground text-xs">
                                     Joined December 2021

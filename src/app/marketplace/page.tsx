@@ -1,8 +1,4 @@
-
 import React from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { Mid } from "@/components/MidSection";
 import { ProductGallery } from "@/components/gallery/ProductGallery";
 import { MerxLayout } from "@/components/merxDash";
 import { Items } from "@/components/Items";
@@ -21,7 +17,7 @@ export default function Market(){
         <div>
             
             <CartProvider>
-            <Header/>
+            
             <NavList/>
             <ProductGallery/>
             
@@ -32,9 +28,6 @@ export default function Market(){
                 <CartPage/>
             </MerxLayout>
      
-            <Mid/>
-           
-            <Footer/>
             </CartProvider>
 
         </div>

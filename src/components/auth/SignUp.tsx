@@ -35,7 +35,7 @@ export function SignUpForm({
         color: "#fff", // White text color
       },
     });
-      router.push("/login");
+      router.push("/marketplace");
       localStorage.setItem("user", data.user.name);
 
     } catch (error) {
