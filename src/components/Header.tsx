@@ -85,7 +85,7 @@ export const Header = ()=>{
                     
                     {/* <img src='Windows_Settings_icon.svg' className='h-7 w-7 fill-white '/> */}
                     <span className='flex'>
-                    <Settings className='w-full h-8 stroke-white hover:stroke-red-500 mr-2' strokeWidth={1.0} fill='none' href='null'/> 
+                    <Settings className='w-full h-8 stroke-white hover:stroke-red-500 mr-1 max-w-md:h-4' strokeWidth={1.0} fill='none' href='null'/> 
                     {/* <span className="absolute top-0 right-0 bg-red-500 hover:fill-red-500 text-white text-xs rounded-full px-1"></span> */}
                     <a href="#" className="text-gray-400 hover:text-red-500 ">Settings</a>
                     </span>

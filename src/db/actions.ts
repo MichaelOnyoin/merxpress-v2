@@ -6,16 +6,17 @@ import { Order } from './definitions';
 //import { stackServerApp } from '@/stack';
 //import { CartItem } from "./definitions";
 //import axios from "axios";
-import { toast } from 'sonner';
+//import { toast } from 'sonner';
 
 const db_key =process.env.DATABASE_URL;
 // const user = await stackServerApp.getUser();
 // const userProfile = await getUserDetails(user?.id);
 
+
 export async function validateRegister(name: string, email: string, password: string, password_confirmation: string) {
   
   try {
-    const response = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/register", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/register`, {
       method: "POST",
       mode: "cors", // Ensure CORS is enabled
       headers: {
@@ -26,14 +27,14 @@ export async function validateRegister(name: string, email: string, password: st
 
     });
     
-    console.log(JSON.stringify({ name, email, password, password_confirmation }));
+    //console.log(JSON.stringify({ name, email, password, password_confirmation }));
     //console.log(response);
     // Check if the response is ok (status in the range 200-299)
     if(response){
     console.log("Registration successful");
     // Assuming the response contains a token and user information
     const data = await response.json();
-    console.log("Register response: ", data);
+    //console.log("Register response: ", data);
 
     return data;
     }
@@ -46,7 +47,7 @@ export async function validateRegister(name: string, email: string, password: st
 
 export async function validateLogin(email: string, password: string) {
   try {
-    const response = await fetch("https://merx-backend-main-a1cmw8.laravel.cloud/api/login", {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,14 +56,14 @@ export async function validateLogin(email: string, password: string) {
       body: JSON.stringify({ email, password }),
 
     });
-    console.log(JSON.stringify({ email, password }));
-    console.log(response);
+    //console.log(JSON.stringify({ email, password }));
+    //console.log(response);
     // Check if the response is ok (status in the range 200-299)
     if(response.ok){
     //console.log("Login successful");
     // Assuming the response contains a token and user information
     const data = await response.json();
-    console.log("Login response: ", data);
+    //console.log("Login response: ", data);
     
     return data;
     }
@@ -70,7 +71,7 @@ export async function validateLogin(email: string, password: string) {
     if (!response.ok) {
       // Handle non-2xx HTTP responses
       const errorData = await response.json();
-      toast.error("Login failed: Wrong email or password");
+      //toast.error("Login failed: Wrong email or password");
       throw new Error(errorData.message || "Login failed");
       
     }
@@ -87,7 +88,7 @@ export async function validateLogin(email: string, password: string) {
 export async function logout() {
   //'use server'
   try {
-    const response = await fetch('https://merx-backend-main-a1cmw8.laravel.cloud/api/logout', {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -109,7 +110,7 @@ export async function logout() {
 
 export async function searchProducts(query: string) {
   try {
-    const response = await fetch(`https://merx-backend-main-a1cmw8.laravel.cloud/api/products/search?q=${encodeURIComponent(query)}`, {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/products/search?q=${query}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

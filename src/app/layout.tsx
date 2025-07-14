@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Mid } from "@/components/MidSection";
+import { CartProvider } from "@/components/cart/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,21 +30,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* <meta property="og:image" content="<generated>" />
-        <meta property="og:image:type" content="<generated>" />
-        <meta property="og:image:width" content="<generated>" />
-        <meta property="og:image:height" content="<generated>" />
-        <meta property="og:image:alt" content="About Acme" />
-        <link rel="icon" href="/favicon.ico" sizes="any" /> */}
+       
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster richColors={true} />
+        <CartProvider>
         <Header />
         {children}
         <Mid />
         <Footer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -23,6 +23,7 @@ export function LoginForm({
   event.preventDefault();
   try {
     const data =await validateLogin(email, password);
+    console.log("Login data:", data);
     // If login is successful, you can redirect or perform other actions
     // For example, redirect to the dashboard or home page
     //router.push("/marketplace");
@@ -35,7 +36,7 @@ export function LoginForm({
       },
     });
     console.log("Login successful:");
-    console.log(data);
+    //console.log(data);
     // Store the token or user information in localStorage or a global state
     localStorage.setItem("user", data.user.name);
     //await createSession(data.user.id); 
