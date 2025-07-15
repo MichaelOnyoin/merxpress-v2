@@ -5,8 +5,8 @@ import { Items } from "@/components/Items";
 import { ItemDisplay } from "@/components/Display";
 import { NavList } from "@/components/NavList";
 import Products  from "@/components/Shelf";
-//import CartPage from "@/components/cart/Cart";
-//import { CartProvider } from "@/components/cart/CartContext";
+import CartPage from "@/components/cart/Cart";
+import { CartProvider } from "@/components/cart/CartContext";
 //import { SearchBar } from "@/components/search/SearchBar";
 
 
@@ -14,7 +14,8 @@ import Products  from "@/components/Shelf";
 
 export default function Market(){
     return(
-        <div>     
+        <div> 
+            <CartProvider>
             <NavList/>
             <ProductGallery/>
             
@@ -22,9 +23,9 @@ export default function Market(){
                 <Items/>
                 <ItemDisplay/>
                 <Products/>
-                {/* <CartPage/> */}
+                <CartPage/>
             </MerxLayout>
-
+            </CartProvider>
         </div>
     )
 
